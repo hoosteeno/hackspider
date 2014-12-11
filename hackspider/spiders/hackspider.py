@@ -14,7 +14,7 @@ class HackSpider(CrawlSpider):
     start_urls = ["http://hacks.mozilla.org"]
 
     rules = (
-        Rule(LinkExtractor(), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(deny('hacks\.mozilla\.org\/author')), follow=True, callback='parse_item'),
     )
 
     def parse_item(self, response):
