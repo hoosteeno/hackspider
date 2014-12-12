@@ -8,22 +8,28 @@ class Page(Item):
     imgs = Field()
 
 class HackSpider(CrawlSpider):
-#class HackSpider(Spider):
     name = "hackspider"
     allowed_domains = ["hacks.mozilla.org"]
     start_urls = ["http://hacks.mozilla.org"]
 
     rules = (
-        Rule(LinkExtractor(deny=(
-            '.*hacks\.mozilla\.org\/author.*', 
-            '.*\/by\.*/', 
-            '.*\/as\/.*', 
-            '.*\/comment-page.*',
-        )), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(unique=True, 
+            deny=(
+                '.*\/author\/.*', 
+                '.*\/by\.*/', 
+                '.*\/as\/.*', 
+                '.*\/comment-page.*',
+                '.*\/articles\/.*',
+            ),
+            # using categories as our index gives us the simplest ruleset
+            allow=(
+                '.*\/category\/.*',
+                '.*\/\d{4}\/\d{2}\/.*',
+            )
+        ), follow=True, callback='parse_item'),
     )
 
     def parse_item(self, response):
-    #def parse(self, response):
         imgs = []
 
         for e in response.css("img").xpath("@src"):
