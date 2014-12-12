@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="/js/mustache.js"></script>
+        <script>
+            $(function() {
+                var $page_template = $('#page_template').html();
+                Mustache.parse($page_template);
+                $.getJSON('/js/data.json', function(data) {
+                    $.each(data, function(k, v) {
+                        //console.log(v);
+                        $('#t').append(Mustache.render($page_template, v));
+                    });
+                });
+            });
+        </script>
+        <style>
+            img { float: left; border: 2px solid #000; max-width: 200px; overflow: hidden;}
+            td { border-bottom: 1px solid #000; }
+        </style>
+    </head>
+    <body>
+        <h1>Hacks images that might be broken</h1>
+        <table id='t'>
+            <script id="page_template" type="x-tmpl-mustache">
+            <tr>
+                <td>
+                    {{#imgs}}
+                        <img alt="Missing: {{.}}" src="{{.}}" />
+                    {{/imgs}}
+                </td>
+                <td>
+                    Appears on <a href="{{ url }}">this post</a>
+                </td>
+            </tr>
+            </script>
+        </table>
+    </body>
+</html>
