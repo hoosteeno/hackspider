@@ -18,7 +18,7 @@ class HackSpider(CrawlSpider):
             '.*hacks\.mozilla\.org\/author.*', 
             '.*\/by\.*/', 
             '.*\/as\/.*', 
-            '.*\/comment-page/.*',
+            '.*\/comment-page.*',
         )), follow=True, callback='parse_item'),
     )
 
