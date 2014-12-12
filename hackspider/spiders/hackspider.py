@@ -18,10 +18,9 @@ class HackSpider(CrawlSpider):
                 '.*\/author\/.*', 
                 '.*\/by\.*/', 
                 '.*\/as\/.*', 
-                '.*\/comment\-page.*',
+                '.*comment\-page.*',
                 '.*\/articles\/.*',
                 '.*\/replytocom\/.*',
-                '^https.*',
             ),
             # using categories as our index gives us the simplest ruleset
             allow=(
